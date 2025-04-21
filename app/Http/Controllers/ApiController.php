@@ -68,7 +68,7 @@ class ApiController extends Controller
         // if ($status === 'done') { ... }
 
         // Return a response
-        return response()->json(['message' => $deviceCode]);
+        return response()->json(['message' => 'hayss']);
     }
 
 
