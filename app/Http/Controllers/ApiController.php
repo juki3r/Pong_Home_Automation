@@ -47,37 +47,28 @@ class ApiController extends Controller
         ]);
     }
 
-    //UPDATE LIGHT STATUS
     public function updateLightStatus(Request $request)
     {
-        // $request->validate([
-        //     'device_code' => 'required|string',
-        //     'gpio' => 'required|string',
-        //     'status' => 'required|in:pending,done',
-        //     'switch_status' => 'required|string',
-        // ]);
+        // Validate the incoming request data
+        $validated = $request->validate([
+            'device_code' => 'required|string',
+            'gpio' => 'required|string',
+            'status' => 'required|string',
+            'switch_status' => 'required|string',
+        ]);
 
-        // // Find the switch by device code and GPIO
-        // $light = DB::table('lights')
-        //         ->join('users', 'users.id', '=', 'lights.user_id')
-        //         ->where('users.device_code', $request->device_code)
-        //         ->where('lights.gpio', $request->gpio)
-        //         ->select('lights.*') // or lights.id only if needed
-        //         ->first();
+        // You can access the data like this
+        $deviceCode = $validated['device_code'];
+        $gpio = $validated['gpio'];
+        $status = $validated['status'];
+        $switchStatus = $validated['switch_status'];
 
-        //     if (!$light) {
-        //         return response()->json(['message' => 'Switch not found'], 404);
-        //     }
+        // Implement your logic here (e.g., update GPIO pin or status)
+        // Example:
+        // if ($status === 'done') { ... }
 
-        //     DB::table('lights')->where('id', $light->id)->update([
-        //         'status' => $request->status,
-        //         'switch_status' => $request->switch_status,
-        //         'updated_at' => now(),
-        //     ]);
-
-            return response()->json(['message' => 'Switch status updated to ' . $request->device_code]);
-
-
+        // Return a response
+        return response()->json(['message' => $deviceCode]);
     }
 
 
