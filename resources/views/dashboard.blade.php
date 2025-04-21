@@ -10,6 +10,19 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
+
+                    @if(!auth()->user()->subscribe)
+                        <form action="{{ route('subscribe') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-primary">Subscribe Now</button>
+                        </form>
+                    @else
+                        <p>You are already subscribed.</p>
+                    @endif
+
+                    @if(session('message'))
+                        <div class="alert alert-info mt-2">{{ session('message') }}</div>
+                    @endif
                 </div>
             </div>
         </div>

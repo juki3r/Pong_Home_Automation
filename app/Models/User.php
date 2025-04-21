@@ -56,4 +56,9 @@ class User extends Authenticatable
             $user->api_key = Str::uuid(); // or use Str::random(32);
         });
     }
+
+    public function lights()
+    {
+        return $this->hasMany(Lights::class);
+    }
 }

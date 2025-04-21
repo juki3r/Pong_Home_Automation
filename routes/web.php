@@ -12,6 +12,9 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [MainController::class, 'show_dashboard'])->name('dashboard');
 
+    //SUBSCRIBE
+    Route::post('/subscribe', [MainController::class, 'subscribe'])->name('subscribe');
+
     Route::get('/lights', [MainController::class, 'show_lights'])->name('lights');
 });
 
