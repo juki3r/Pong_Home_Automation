@@ -28,35 +28,36 @@ class MainController extends Controller
         $user->subscribe = true;
         $user->save();
 
-
-        //LIGHTS
-        $defaultLights = [];
-        for ($i = 1; $i <= 7; $i++) {
-            $defaultLights[] = [
-                'gpio' => 'D' . $i,
-                'switch_name' => 'switch-' . $i,
-                'action' => 'off',
-                'status' => 'pending'
-            ];
+        // Avoid duplicating lights
+        if ($user->lights()->count() === 0) {
+            $defaultLights = [];
+            for ($i = 1; $i <= 7; $i++) {
+                $defaultLights[] = [
+                    'gpio' => 'D' . $i,
+                    'switch_name' => 'switch-' . $i,
+                    'action' => 'off',
+                    'status' => 'pending'
+                ];
+            }
+            $user->lights()->createMany($defaultLights);
         }
 
-        $user->lights()->createMany($defaultLights);
-
-
-        // Appliances
-        // Appliances
-        $defaultAppliances = [];
-        for ($i = 1; $i <= 8; $i++) {
-            $defaultAppliances[] = [
-                'gpio' => 'D' . $i,
-                'switch_name' => 'appliance-' . $i,
-                'action' => 'off',
-                'status' => 'pending'
-            ];
+        // Avoid duplicating appliances
+        if ($user->appliances()->count() === 0) {
+            $defaultAppliances = [];
+            for ($i = 1; $i <= 8; $i++) {
+                $defaultAppliances[] = [
+                    'gpio' => 'D' . $i,
+                    'switch_name' => 'appliance-' . $i,
+                    'action' => 'off',
+                    'status' => 'pending'
+                ];
+            }
+            $user->appliances()->createMany($defaultAppliances);
         }
-        $user->appliances()->createMany($defaultAppliances);
 
-        return redirect()->back()->with('message', 'Subscribed successfully! Lights initialized.');
+        return redirect()->back()->with('message', 'Subscribed successfully!');
     }
+
 
 }
