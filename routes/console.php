@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Device;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -9,4 +10,11 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 
-Schedule::command('check-heartbeat')->everyMinute();
+Schedule::call(function () {
+    Device::all()->each(function ($device) {
+        if ($device->last_heartbeat && now()->diffInSeconds($device->last_heartbeat) > 30) {
+            $device->status = 'offline';
+            $device->save();
+        }
+    });
+})->everyMinute();
