@@ -57,11 +57,11 @@ class ApiController extends Controller
             'switch_status' => 'required',
         ]);
 
-        // You can access the data like this
-        $deviceCode = $validated['device_code'];
-        $gpio = $validated['gpio'];
-        $status = $validated['status'];
-        $switchStatus = $validated['switch_status'];
+        // // You can access the data like this
+        // $deviceCode = $validated['device_code'];
+        // $gpio = $validated['gpio'];
+        // $status = $validated['status'];
+        // $switchStatus = $validated['switch_status'];
 
         // Implement your logic here (e.g., update GPIO pin or status)
         // Example:
