@@ -49,13 +49,13 @@ class ApiController extends Controller
 
     public function updateLightStatus(Request $request)
     {
-        // Validate the incoming request data
-        $validated = $request->validate([
-            'device_code' => 'required',
-            'gpio' => 'required',
-            'status' => 'required',
-            'switch_status' => 'required',
-        ]);
+        // // Validate the incoming request data
+        // $validated = $request->validate([
+        //     'device_code' => 'required',
+        //     'gpio' => 'required',
+        //     'status' => 'required',
+        //     'switch_status' => 'required',
+        // ]);
 
         // // You can access the data like this
         // $deviceCode = $validated['device_code'];
