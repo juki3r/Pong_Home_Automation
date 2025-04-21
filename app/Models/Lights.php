@@ -12,6 +12,7 @@ class Lights extends Model
         'action',
         'status',
         'switch_status',
+        'updated_at',
     ];
 
     // Optional: Cast the status as string for safety
