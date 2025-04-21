@@ -56,11 +56,13 @@ class ApiController extends Controller
             'switch_status' => 'required|string',
         ]);
 
-        // Find the switch by device code and GPIO
         $light = DB::table('lights')
-            ->where('device_code', $request->device_code)
-            ->where('gpio', $request->gpio)
+            ->join('users', 'lights.user_id', '=', 'users.id')
+            ->where('users.device_code', $request->device_code)
+            ->where('lights.gpio', $request->gpio)
+            ->select('lights.id')  // select only what you need
             ->first();
+
 
         if (!$light) {
             return response()->json(['message' => 'Switch not found'], 404);
