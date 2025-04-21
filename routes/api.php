@@ -11,9 +11,10 @@ Route::middleware('check.api')->group(function(){
     //TO ESP8266
     Route::get('/fetch-pending-actions-lights', [ApiController::class, 'action_lights']);
     Route::get('/fetch-pending-actions-appliance', [ApiController::class, 'action_appliance']);
+    Route::post('/update-light-status', [ApiController::class, 'updateLightStatus']);
 
     
 });
 
-Route::post('/update-light-status', [ApiController::class, 'updateLightStatus']);
+
 
