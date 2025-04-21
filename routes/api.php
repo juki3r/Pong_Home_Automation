@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\DeviceController;
 
 
 //Check Api_key and subscription, if true then this is the functions.
@@ -13,7 +14,7 @@ Route::middleware('check.api')->group(function(){
     Route::get('/fetch-pending-actions-appliance', [ApiController::class, 'action_appliance']);
     Route::post('/update-light-status', [ApiController::class, 'updateLightStatus']);
 
-    
+    Route::post('device-heartbeat', [DeviceController::class, 'handleHeartbeat']);
 });
 
 
