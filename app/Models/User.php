@@ -61,4 +61,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Lights::class);
     }
+
+    public function appliances()
+    {
+        return $this->hasMany(Appliance::class);
+    }
 }

@@ -28,6 +28,8 @@ class MainController extends Controller
         $user->subscribe = true;
         $user->save();
 
+
+        //LIGHTS
         $defaultLights = [];
         for ($i = 1; $i <= 7; $i++) {
             $defaultLights[] = [
@@ -39,6 +41,20 @@ class MainController extends Controller
         }
 
         $user->lights()->createMany($defaultLights);
+
+
+        // Appliances
+        // Appliances
+        $defaultAppliances = [];
+        for ($i = 1; $i <= 8; $i++) {
+            $defaultAppliances[] = [
+                'gpio' => 'D' . $i,
+                'switch_name' => 'appliance-' . $i,
+                'action' => 'off',
+                'status' => 'pending'
+            ];
+        }
+        $user->appliances()->createMany($defaultAppliances);
 
         return redirect()->back()->with('message', 'Subscribed successfully! Lights initialized.');
     }
