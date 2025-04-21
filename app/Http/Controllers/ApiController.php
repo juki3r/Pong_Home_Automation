@@ -51,10 +51,10 @@ class ApiController extends Controller
     {
         // Validate the incoming request data
         $validated = $request->validate([
-            'device_code' => 'required|string',
-            'gpio' => 'required|string',
-            'status' => 'required|string',
-            'switch_status' => 'required|string',
+            'device_code' => 'required',
+            'gpio' => 'required',
+            'status' => 'required',
+            'switch_status' => 'required',
         ]);
 
         // You can access the data like this
