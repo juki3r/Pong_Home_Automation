@@ -10,7 +10,8 @@ class CheckApiKeyAndSubscription
 {
     public function handle(Request $request, Closure $next)
     {
-        $apiKey = $request->header('api_key');
+        // Fetch the API key from the Authorization header (Bearer token)
+        $apiKey = $request->bearerToken();
 
         if (!$apiKey) {
             return response()->json(['error' => 'API key missing'], 401);
@@ -31,5 +32,6 @@ class CheckApiKeyAndSubscription
 
         return $next($request);
     }
+
 }
 
