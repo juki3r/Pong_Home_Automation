@@ -42,7 +42,7 @@ class MainController extends Controller
                     'gpio' => 'D' . $i,
                     'switch_name' => 'switch-' . $i,
                     'action' => 'off',
-                    'status' => 'pending'
+                    'status' => 'off'
                 ];
             }
             $user->lights()->createMany($defaultLights);
@@ -56,7 +56,7 @@ class MainController extends Controller
                     'gpio' => 'D' . $i,
                     'switch_name' => 'appliance-' . $i,
                     'action' => 'off',
-                    'status' => 'pending'
+                    'status' => 'off'
                 ];
             }
             $user->appliances()->createMany($defaultAppliances);
