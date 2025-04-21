@@ -77,7 +77,8 @@ class ApiController extends Controller
 
         // return response()->json(['message' => 'Switch status updated to ' . $request->status]);
 
-        return response()=>json(['message' => 'hayss'])
+        return response()->json(['message' => 'hayss']);
+
     }
 
 
