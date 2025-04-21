@@ -49,26 +49,47 @@ class ApiController extends Controller
 
     public function updateLightStatus(Request $request)
     {
-        // // Read the raw input from the body
-        // $rawInput = file_get_contents("php://input");
-
-        // // Attempt to decode the raw input JSON
-        // $data = json_decode($rawInput, true);
-
-        // // If json_decode fails, it returns null
-        // if ($data === null) {
-        //     return response()->json(['message' => 'Invalid JSON', 'raw_input' => $rawInput], 400);
-        // }
-
-        // // Now, you should have access to $data as an associative array
-        // $deviceCode = $data['device_code'] ?? null;
-        // $gpio = $data['gpio'] ?? null;
-        // $status = $data['status'] ?? null;
-        // $switchStatus = $data['switch_status'] ?? null;
-
-        // Example logic here (e.g., GPIO update, database interaction, etc.)
+        // Read raw JSON input
+        $rawInput = file_get_contents("php://input");
+        $data = json_decode($rawInput, true);
+    
+        if ($data === null) {
+            return response()->json(['message' => 'Invalid JSON', 'raw_input' => $rawInput], 400);
+        }
+    
+        $deviceCode = $data['device_code'] ?? null;
+        $gpio = $data['gpio'] ?? null;
+        $status = $data['status'] ?? null;
+        $switchStatus = $data['switch_status'] ?? null;
+    
+        // Validate required data
+        if (!$deviceCode || !$gpio || $status === null || $switchStatus === null) {
+            return response()->json(['message' => 'Missing required fields'], 400);
+        }
+    
+        // Find the user by device code
+        $user = User::where('device_code', $deviceCode)->first();
+    
+        if (!$user) {
+            return response()->json(['message' => 'Device not found'], 404);
+        }
+    
+        // Find the light by GPIO
+        $light = $user->lights()->where('gpio', $gpio)->first();
+    
+        if (!$light) {
+            return response()->json(['message' => 'Light with GPIO ' . $gpio . ' not found'], 404);
+        }
+    
+        // Update the light status
+        $light->update([
+            'status' => $status,
+            'switch_status' => $switchStatus,
+        ]);
+    
         return response()->json(['message' => 'Light status updated successfully']);
     }
+    
 
 
 
