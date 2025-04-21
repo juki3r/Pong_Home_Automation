@@ -52,7 +52,8 @@ class ApiController extends Controller
         $request->validate([
             'device_code' => 'required|string',
             'gpio' => 'required|string',
-            'status' => 'required|in:pending,done,failed',
+            'status' => 'required|in:pending,done',
+            'switch_status' => 'required|in:on,off',
         ]);
 
         // Find the switch by device code and GPIO
@@ -70,6 +71,7 @@ class ApiController extends Controller
             ->where('id', $light->id)
             ->update([
                 'status' => $request->status,
+                'switch_status' => $request->switch_status,
                 'updated_at' => now()
             ]);
 

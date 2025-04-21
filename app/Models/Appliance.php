@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appliance extends Model
 {
-    protected $fillable = ['gpio', 'switch_name', 'action', 'status'];
+    protected $fillable = ['gpio', 'switch_name', 'action', 'status', 'switch_status'];
 
     public function user()
     {
