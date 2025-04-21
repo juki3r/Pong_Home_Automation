@@ -58,24 +58,25 @@ class ApiController extends Controller
         ]);
 
         // Find the switch by device code and GPIO
-        $light = Lights::whereHas('user', function ($query) use ($request) {
-                $query->where('device_code', $request->device_code);
-            })
-            ->where('gpio', $request->gpio)
-            ->first();
+        $light = DB::table('lights')
+                ->join('users', 'users.id', '=', 'lights.user_id')
+                ->where('users.device_code', $request->device_code)
+                ->where('lights.gpio', $request->gpio)
+                ->select('lights.*') // or lights.id only if needed
+                ->first();
 
-        if (!$light) {
-            return response()->json(['message' => 'Switch not found'], 404);
-        }
+            if (!$light) {
+                return response()->json(['message' => 'Switch not found'], 404);
+            }
 
-        // Update the status using Eloquent
-        $light->update([
-            'status' => $request->status,
-            'switch_status' => $request->switch_status,
-            'updated_at' => now(),
-        ]);
+            DB::table('lights')->where('id', $light->id)->update([
+                'status' => $request->status,
+                'switch_status' => $request->switch_status,
+                'updated_at' => now(),
+            ]);
 
-        return response()->json(['message' => 'Switch status updated to ' . $request->status]);
+            return response()->json(['message' => 'Switch status updated to ' . $request->status]);
+
 
     }
 
