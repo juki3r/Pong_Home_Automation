@@ -12,10 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
 
-        middleware: [
-            // This is where you register route middleware
-            'check.api' => \App\Http\Middleware\CheckApiKeyAndSubscription::class,
-        ],
+        // middleware: [
+        //     // This is where you register route middleware
+        //     'check.api' => \App\Http\Middleware\CheckApiKeyAndSubscription::class,
+        // ],
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
