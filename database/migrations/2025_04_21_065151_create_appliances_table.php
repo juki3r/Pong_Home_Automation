@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('gpio');
             $table->string('switch_name');
             $table->string('action')->default('off');
-            $table->enum('status', ['pending', 'done', 'failed'])->default('pending');
+            $table->enum('status', ['on', 'off'])->default('off');
             $table->timestamps();
         });
     }
