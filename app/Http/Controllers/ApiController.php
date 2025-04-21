@@ -66,16 +66,15 @@ class ApiController extends Controller
             return response()->json(['message' => 'Switch not found'], 404);
         }
 
-        // Update the status
-        DB::table('lights')
-            ->where('id', $light->id)
-            ->update([
-                'status' => $request->status,
-                'switch_status' => $request->switch_status,
-                'updated_at' => now()
-            ]);
+        // Update the status using Eloquent
+        $light->update([
+            'status' => $request->status,
+            'switch_status' => $request->switch_status,
+            'updated_at' => now(),
+        ]);
 
         return response()->json(['message' => 'Switch status updated to ' . $request->status]);
     }
+
 
 }
