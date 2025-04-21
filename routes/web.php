@@ -18,6 +18,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/lights', [MainController::class, 'show_lights'])->name('lights');
 });
 
+Route::post('/update-light-status', [ApiController::class, 'updateLightStatus']);
+
 
 
 Route::middleware('auth')->group(function () {
