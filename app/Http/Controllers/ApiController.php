@@ -49,27 +49,25 @@ class ApiController extends Controller
 
     public function updateLightStatus(Request $request)
     {
-        // // Validate the incoming request data
-        // $validated = $request->validate([
-        //     'device_code' => 'required',
-        //     'gpio' => 'required',
-        //     'status' => 'required',
-        //     'switch_status' => 'required',
-        // ]);
+        // Manually decode JSON if needed
+        $rawInput = file_get_contents("php://input");
+        $data = json_decode($rawInput, true);  // Decode the JSON payload into an array
 
-        // // You can access the data like this
-        // $deviceCode = $validated['device_code'];
-        // $gpio = $validated['gpio'];
-        // $status = $validated['status'];
-        // $switchStatus = $validated['switch_status'];
+        // Check if data is decoded properly
+        if ($data === null) {
+            return response()->json(['message' => 'Invalid JSON'], 400);
+        }
 
-        // Implement your logic here (e.g., update GPIO pin or status)
-        // Example:
-        // if ($status === 'done') { ... }
+        // Now, manually access the data
+        $deviceCode = $data['device_code'] ?? null;
+        $gpio = $data['gpio'] ?? null;
+        $status = $data['status'] ?? null;
+        $switchStatus = $data['switch_status'] ?? null;
 
-        // Return a response
-        return response()->json(['message' => $request->device_code]);
+        // Example of logic
+        return response()->json(['message' => 'Light status updated successfully']);
     }
+
 
 
 }
