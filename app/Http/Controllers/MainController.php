@@ -22,19 +22,31 @@ class MainController extends Controller
     {
         $user = Auth::user();
 
+        // Check if user is already subscribed
         if ($user->subscribe) {
             return redirect()->back()->with('message', 'Already subscribed.');
         }
 
+        // Mark the user as subscribed
         $user->subscribe = true;
         $user->save();
 
+        // If the user does not have a device code, generate one
         if (!$user->device_code) {
             $user->device_code = Str::uuid(); // or use Str::random(16)
             $user->save();
         }
 
-       // Avoid duplicating lights
+        // Create a new device record for the user (if not already created)
+        if (!$user->devices()->exists()) {
+            $user->devices()->create([
+                'device_code' => $user->device_code,
+                'status' => 'offline', // Device initially starts offline
+                'last_heartbeat' => now(),
+            ]);
+        }
+
+        // Avoid duplicating lights
         if ($user->lights()->count() === 0) {
             $gpioPins = [21, 22, 19, 18, 5, 4, 2];  // GPIOs for ESP32
             $defaultLights = [];
@@ -52,7 +64,7 @@ class MainController extends Controller
             $user->lights()->createMany($defaultLights);
         }
 
-
+        // Avoid duplicating appliances
         if ($user->appliances()->count() === 0) {
             $gpioPins = [21, 22, 19, 18, 5, 4, 2];  // GPIOs for ESP32
             $defaultAppliances = [];
@@ -72,6 +84,7 @@ class MainController extends Controller
 
         return redirect()->back()->with('message', 'Subscribed successfully!');
     }
+
 
 
 }
