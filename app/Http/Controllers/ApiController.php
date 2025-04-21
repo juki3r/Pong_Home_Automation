@@ -49,22 +49,22 @@ class ApiController extends Controller
 
     public function updateLightStatus(Request $request)
     {
-        // Read the raw input from the body
-        $rawInput = file_get_contents("php://input");
+        // // Read the raw input from the body
+        // $rawInput = file_get_contents("php://input");
 
-        // Attempt to decode the raw input JSON
-        $data = json_decode($rawInput, true);
+        // // Attempt to decode the raw input JSON
+        // $data = json_decode($rawInput, true);
 
-        // If json_decode fails, it returns null
-        if ($data === null) {
-            return response()->json(['message' => 'Invalid JSON', 'raw_input' => $rawInput], 400);
-        }
+        // // If json_decode fails, it returns null
+        // if ($data === null) {
+        //     return response()->json(['message' => 'Invalid JSON', 'raw_input' => $rawInput], 400);
+        // }
 
-        // Now, you should have access to $data as an associative array
-        $deviceCode = $data['device_code'] ?? null;
-        $gpio = $data['gpio'] ?? null;
-        $status = $data['status'] ?? null;
-        $switchStatus = $data['switch_status'] ?? null;
+        // // Now, you should have access to $data as an associative array
+        // $deviceCode = $data['device_code'] ?? null;
+        // $gpio = $data['gpio'] ?? null;
+        // $status = $data['status'] ?? null;
+        // $switchStatus = $data['switch_status'] ?? null;
 
         // Example logic here (e.g., GPIO update, database interaction, etc.)
         return response()->json(['message' => 'Light status updated successfully']);
