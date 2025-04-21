@@ -10,4 +10,9 @@ class MainController extends Controller
     {
         return view('dashboard');
     }
+
+    public function show_lights()
+    {
+        return view('lights.index');
+    }
 }
