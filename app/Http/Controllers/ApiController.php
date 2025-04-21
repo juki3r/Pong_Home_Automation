@@ -53,7 +53,7 @@ class ApiController extends Controller
             'device_code' => 'required|string',
             'gpio' => 'required|string',
             'status' => 'required|in:pending,done',
-            'switch_status' => 'required|in:on,off',
+            'switch_status' => 'required|string',
         ]);
 
         // Find the switch by device code and GPIO
