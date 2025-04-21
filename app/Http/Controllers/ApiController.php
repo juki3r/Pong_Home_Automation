@@ -75,7 +75,7 @@ class ApiController extends Controller
         //         'updated_at' => now(),
         //     ]);
 
-            return response()->json(['message' => 'Switch status updated to ' . $request->status]);
+            return response()->json(['message' => 'Switch status updated to ' . $request->device_code]);
 
 
     }
