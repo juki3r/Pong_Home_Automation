@@ -42,7 +42,7 @@ class MainController extends Controller
                     'gpio' => 'D' . $i,
                     'switch_name' => 'switch-' . $i,
                     'action' => 'off',
-                    'status' => 'off',
+                    'status' => 'pending',
                     'switch_status' => 'off',
                 ];
             }
@@ -57,7 +57,7 @@ class MainController extends Controller
                     'gpio' => 'D' . $i,
                     'switch_name' => 'appliance-' . $i,
                     'action' => 'off',
-                    'status' => 'off',
+                    'status' => 'pending',
                     'switch_status' => 'off',
                 ];
             }
