@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'api_key',
         'subscribe',
+        'device_code',
     ];
 
     /**

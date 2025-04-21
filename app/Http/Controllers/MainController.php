@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,6 +29,11 @@ class MainController extends Controller
         $user->subscribe = true;
         $user->save();
 
+        if (!$user->device_code) {
+            $user->device_code = Str::uuid(); // or use Str::random(16)
+            $user->save();
+        }
+
         // Avoid duplicating lights
         if ($user->lights()->count() === 0) {
             $defaultLights = [];
@@ -45,7 +51,7 @@ class MainController extends Controller
         // Avoid duplicating appliances
         if ($user->appliances()->count() === 0) {
             $defaultAppliances = [];
-            for ($i = 1; $i <= 8; $i++) {
+            for ($i = 1; $i <= 7; $i++) {
                 $defaultAppliances[] = [
                     'gpio' => 'D' . $i,
                     'switch_name' => 'appliance-' . $i,
