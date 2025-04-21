@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('gpio');
             $table->string('switch_name');
+            $table->string('action');
             $table->enum('status', ['pending', 'done'])->default('pending');
             $table->string('switch_status')->default('off');
             $table->timestamps();
