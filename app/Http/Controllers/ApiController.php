@@ -44,4 +44,35 @@ class ApiController extends Controller
             'pending_appliances' => $pendingAppliances
         ]);
     }
+
+    //UPDATE LIGHT STATUS
+    public function updateLightStatus(Request $request)
+    {
+        $request->validate([
+            'device_code' => 'required|string',
+            'gpio' => 'required|string',
+            'status' => 'required|in:pending,done,failed',
+        ]);
+
+        // Find the switch by device code and GPIO
+        $light = DB::table('lights')
+            ->where('device_code', $request->device_code)
+            ->where('gpio', $request->gpio)
+            ->first();
+
+        if (!$light) {
+            return response()->json(['message' => 'Switch not found'], 404);
+        }
+
+        // Update the status
+        DB::table('lights')
+            ->where('id', $light->id)
+            ->update([
+                'status' => $request->status,
+                'updated_at' => now()
+            ]);
+
+        return response()->json(['message' => 'Switch status updated to ' . $request->status]);
+    }
+
 }
