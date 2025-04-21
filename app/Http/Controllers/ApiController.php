@@ -12,7 +12,7 @@ class ApiController extends Controller
         return response()->json(['message' => 'Welcome!.']);
     }
 
-    public function action(Request $request)
+    public function action_lights(Request $request)
     {
         $deviceCode = $request->query('device_code');
 
@@ -23,10 +23,24 @@ class ApiController extends Controller
         }
     
         $pendingLights = $user->lights()->where('status', 'pending')->get();
-        $pendingAppliances = $user->appliances()->where('status', 'pending')->get();
     
         return response()->json([
             'pending_lights' => $pendingLights,
+        ]);
+    }
+
+    public function action_appliance(Request $request)
+    {
+        $deviceCode = $request->query('device_code');
+
+        $user = User::where('device_code', $deviceCode)->first();
+    
+        if (!$user) {
+            return response()->json(['error' => 'Invalid device'], 404);
+        }
+        $pendingAppliances = $user->appliances()->where('status', 'pending')->get();
+    
+        return response()->json([
             'pending_appliances' => $pendingAppliances
         ]);
     }

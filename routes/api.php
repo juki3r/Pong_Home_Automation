@@ -9,5 +9,6 @@ Route::middleware('check.api')->group(function(){
     Route::get('/test-api', [ApiController::class, 'testApi']);
 
     //TO ESP8266
-    Route::get('/fetch-pending-actions', [ApiController::class, 'action']);
+    Route::get('/fetch-pending-actions-lights', [ApiController::class, 'action_lights']);
+    Route::get('/fetch-pending-actions-appliance', [ApiController::class, 'action_appliance']);
 });
